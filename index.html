@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namaste React</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+
+    
+    <div id="root">
+        <!-- <h1>Hello World</h1> -->
+         <!-- <script>
+
+            // These functions are provided by browser
+            const heading = document.createElement("h1");
+            heading.innerHTML = "Hello World from JavaScript";
+
+            const root = document.getElementById("root");
+            root.appendChild(heading);   
+         </script> -->
+
+         <script>
+            // Inject react in two ways : 1) CDN(Content Delivery Network) links  - React library is hosted on a server and we can use it in our project by using the link provided by the server.
+            // 2) NPM(Node Package Manager) - React library is installed in our project using npm install command and we can use it in our project by importing it.
+         </script>
+
+         <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+         <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script> 
+         <!-- // Used for dom operations: Bridge between React and various platforms like web, mobile, etc.  -->
+
+         <!-- crossorigin : The crossorigin attribute is used in the React CDN links primarily to enable proper error logging and detailed stack traces within the browser console .
+                            Browsers enforce strict security policies when loading resources from different origins (cross-origin requests). By including the crossorigin attribute, the browser is informed that the resource being loaded is from a different origin, and it should handle it accordingly. This allows React to provide more informative error messages and stack traces, which can be extremely helpful during development and debugging.
+         -->
+
+         <script src = "./App.js">
+
+            // const heading = React.createElement("h1", {} , "Hello World from React!");
+            // const root = ReactDOM.createRoot(document.getElementById("root"));
+            // root.render(heading);
+
+         </script>
+    </div>
+</body>
+</html>
+
+
+<!-- The order of script tags is important
+        First React, then React DOM, then your App code  -->
