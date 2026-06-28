@@ -1,3 +1,7 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+
 const heading = React.createElement("h1", {id : "heading"} , "Hello World from React!"); // {} - attributes , eg ; {id: "title"} 
 
 // heading : If we do console.log(heading) , it will give us a object which is called React Element. It is a object representation of the HTML element.
@@ -7,26 +11,14 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(heading); // Renders the React element into the DOM
 
 
-{/* <div id="parent">
-        <div id="child">
-            <h1></h1>
-        </div>
-</div> */}
-// create this is React:
 
 const parent = React.createElement("div", { id: "parent" }, React.createElement("div", { id: "child" }, React.createElement("h1", {}, "Hello from h1 tag"))); // Object / react element
 // root.render(parent);
 
 
-{/* <div id="parent">
-        <div id="child">
-            <h1></h1>
-            <h2></h2>
-        </div>
-</div> */}
-// create this is React:
 
-const parent1 = React.createElement("div", { id: "parent" }, React.createElement("div", { id: "child" }, 
+
+const parent1 = React.createElement("div", { id: "parent2" }, React.createElement("div", { id: "child2" }, 
     [React.createElement("h1", {}, "Hello from h1 tag"), React.createElement("h2", {}, "Hello from h2 tag")]));
 root.render(parent1); // Content of root will be replaced with parent1 and previous content will be removed. So only last render will work.
 

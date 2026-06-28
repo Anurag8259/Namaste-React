@@ -1,0 +1,75 @@
+package.json  - config for our npm(package manager).
+npm takes of version of depedencies in package.json.
+
+Most imp Package: Bundler
+        -   eg, WebPack, Parcel, Vite
+
+
+create-react-app - Uses Bundler(WebPack) in the background.
+
+Install Parcel - 
+        - npm install -D parcel
+
+Dev dependency vs normal dependency:
+        Dev dependency -D - Used in dev environment.
+
+version - ^ carrot - used for minor updates , it auto installs to latest minor version : 2.8.3 to 2.8.4
+        - ~ tilde - for major updates : 2.8.3 to 3.0.1
+
+package-lock.json - Keeps a tract of exact version of dependency/package being used.
+                  - Keeps a hash (sha512) - integrity : soetimes it works on local but breaks in prod. To avoid this , hash is used to verify the exact package versions.
+
+node modules - I installed just parcel , then why so many other packages are installed?
+                - Beacuse parcel has its own dependencies , which in turen may have its own dependencies (Transitive Dependencies).
+
+Every dependencies have a package.json and package-lock.json
+
+
+You should put package and lock .json in git - as it maintains the exact versions of dependencies.
+    - node_modules - if the above files are present then we can install these. (npm install)
+
+
+npx parcel index.html - Igniting your APP !!
+
+        - npx - executing a package
+        - Hosts on localhost.
+
+
+CDN Links is not a good way to used REACT !! - Expensive network call
+                                             - Change url with changing versions
+
+Install React : npm install react or npm i react
+              : npm install react-dom
+
+
+Make <script> type = "module" in index.html 
+        - because normal script cannot have import statements in it.
+
+
+# Parcel :  - Created Dev server
+            - Local Server Hosting
+            - Auto Refresh : HMR - Hot Module Replacement
+            - File watching algorithm -  written in C++
+            - Faster build time with caching.
+            - Image Optimization
+            - Minification
+            - Bundling
+            - Compressing
+            - Consistent Hashing
+            - Code Splitting
+            - Diffrential Bundling - support older browsers
+            - Diagnostics , Error Handling
+            - HTTPs
+            - Tree Shaking - remove unused code 
+            - Different dev and prod bundles
+
+
+Prod Build : npx parcel build index.html
+        - Highly optimized prod code in dist folder.
+
+In properties.json
+
+"browserslist":[
+    "last 10 Chrome versions",
+    "last 2 versions"
+]
