@@ -12,7 +12,6 @@
   },
   "license": "ISC",
   "author": "Anurag Das",
-  "type": "commonjs",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html",
