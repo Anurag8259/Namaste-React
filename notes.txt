@@ -1,48 +1,42 @@
-"scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html",
-    "test": "jest"
-  },
+Inline CSS can be passed inside style as a JS element.
 
-This is used so that we can write npm run start/npm start, npm run build , etc in terminal instead of npx parcel index.html, etc.
+Passing a prop to a component is same as passing an argument to a JS function.
 
-Diff HTML VS JSX:
-
-html : <h1 id = "heading" class="root" tabindex="1">Hello from JSX !!</h1>;
-
-jsx: <h1 id = "heading" className="root" tabIndex="1">Hello from JSX !!</h1>;
-
-Follows CamelCase.
-
-For multi line JSX , write it inside ()
-
-# React Component: (Everything in react is component)
-    - Class Based Component - old
-    - Functional Component -new
+# Config Driven UI:
+    - eg, Swiggy offers will be different in different locations.
+    - Location specific config like color , offers are passed in the form of JSON. The UI is driven by these config.
 
 
-const data =  api.getData(); // Assuming malicious data.
 
-const Heading = () => (
-    <div id = "container">
+# Body before Looping:
 
-        {data} // Malicious code. JSX sanitizes the data before rendering it to the DOM. So, it will not execute any malicious code.
+const Body = () => {
+    return (
+        <div>
+            <div className = "search">Search</div>
+            <div className = "res-container">
+                {/* Restaurant Card - Separate component as multiple is reqd. */}
+                {/* Passing props to a component */}
+                <RestaurantCard  resList = {resData[0]}/>
+                <RestaurantCard  resList = {resData[1]}/>
 
-    </div>
-);
+                {/* <RestaurantCard resName="KFC" cuisine = "Fast Food" /> */}
+            </div>
+        </div>
+    )
+}
 
-# We can write in any method : <Title/> OR <Title><Title/>
 
-# Functional Componet is also JS function.
 
-const Title = () => (
-    <div>
-        <h1>This is a Title !! </h1>
-    </div>
-);
 
-const Heading = () => (
-    <div id = "container">
-        {Title()} // You can also use it like a normal JS function.
-    </div>
-);
+//Using keys : Huge optimization in React. React does not have to render the entire list again. It only renders the items which have changed.
+                    
+                    resData.map((restaurant) => {
+                        return <RestaurantCard resList = {restaurant} key = {restaurant.info.id}/>
+                    })
+
+// React bad practive : Anti-pattern: We should not use index as a key.
+
+resData.map((restaurant,index) => {
+                        return <RestaurantCard resList = {restaurant} key = {index}/>
+                    })
