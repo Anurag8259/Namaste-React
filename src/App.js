@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Header from "./components/Header";
+import Body from "./components/Body";
 
 // Header
 //     - Logo
@@ -218,23 +220,6 @@ const resData = [
                                         }
                                     }]
                                     
-const Header = () => {
-    return (
-        <div className = "header">
-            <div className = "logo-container">
-                <img className = "logo" src="https://img.magnific.com/free-vector/food-shopping-logo-template-design_460848-10299.jpg"/>
-            </div>
-            <div className = "nav-items">
-                <ul>
-                    <li>Home</li>
-                    <li>About Us</li>
-                    <li>Contact Us</li>
-                    <li>Cart</li>
-                </ul>
-            </div>
-        </div>
-    );
-};
 
 const Style = {
     backgroundColor : "#f8f7eb"
@@ -254,31 +239,7 @@ const RestaurantCard = (props) => {
     )
 }
 
-const Body = () => {
-    return (
-        <div>
-            <div className = "search">Search</div>
-            <div className = "res-container">
-                {/* Restaurant Card - Separate component as multiple is reqd. */}
-                {/* Passing props to a component */}
-                {/* <RestaurantCard  resList = {resData[0]}/>
-                <RestaurantCard  resList = {resData[1]}/> */}
 
-                {/* <RestaurantCard resName="KFC" cuisine = "Fast Food" /> */}
-
-                {
-                    // Why is key required? - React uses key to identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity.
-                    //Using keys : Huge optimization in React. React does not have to render the entire list again. It only renders the items which have changed.
-                    resData.map((restaurant) => {
-                        return <RestaurantCard resList = {restaurant} key = {restaurant.info.id}/>
-                    })
-                }
-
-
-            </div>
-        </div>
-    )
-}
 
 const AppLayout = () => {
     return (

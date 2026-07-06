@@ -40,3 +40,61 @@ const Body = () => {
 resData.map((restaurant,index) => {
                         return <RestaurantCard resList = {restaurant} key = {index}/>
                     })
+
+Named Export vs Default Export:
+ - Named Export used when there are multiple things to Export
+ - Named - {}
+
+We can use both types of exports in one file :
+
+// mathUtils.js
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+
+const multiply = (a, b) => a * b;
+export default multiply;
+
+Used when you want primary info and also extra info.
+
+# Hooks:
+    - normal JS functions.
+    - utility function
+    - useState() - superpowerful state variables
+    - useEffect()
+
+Problem Solved : 
+When data changes , the UI should detect it and change.
+
+#State Variable:
+    - whenever a state variable updates , React re-renders the component.
+    - let [filteredList , setFilteredList] = useState(resData);
+      - useState is a HOOK. (normal JS functions that enables you to create state variables)
+      - state variable  = filteredList
+      - state function  = setFilteredList (this function will set the value of filteredList)
+      - # useState returns an array :
+              - const arr = useState(resData)
+              - const filteredList = arr[0]
+              - const setFilteredList = arr[1]
+              - Same thing !!
+
+
+REACT  - Best at DOM manipulation.
+        - Reconsiliation Algorithm : (React Fiber) - React 16
+              - Suppose our res-container has 7 res-cards right now,
+              then we filter it to 3 cards, lets see what happend BTS.
+              - React uses Virtual DOM. Representation of actual DOM.
+              - Actual DOM : <div>
+                                <div> ....
+              - Virtual DOM - JS Object:
+                    eg; If we print the <Body/> in the Header file , we see the Virtual DOM.
+                        {
+                          div
+                          //Nested Object
+                          {
+
+                          }
+                        }
+              - Finding diff between two HTML is tough . Its easily done by using an object representation , ie , Virtual DOM.
+              - DIFF ALGORITHM:
+              - Finds the difference between OLD and NEW Virtual DOMs.
+              - Since React does not touch the actual DOM, its fast.
