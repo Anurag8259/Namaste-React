@@ -1,100 +1,27 @@
-Inline CSS can be passed inside style as a JS element.
-
-Passing a prop to a component is same as passing an argument to a JS function.
-
-# Config Driven UI:
-    - eg, Swiggy offers will be different in different locations.
-    - Location specific config like color , offers are passed in the form of JSON. The UI is driven by these config.
-
-
-
-# Body before Looping:
-
-const Body = () => {
-    return (
-        <div>
-            <div className = "search">Search</div>
-            <div className = "res-container">
-                {/* Restaurant Card - Separate component as multiple is reqd. */}
-                {/* Passing props to a component */}
-                <RestaurantCard  resList = {resData[0]}/>
-                <RestaurantCard  resList = {resData[1]}/>
-
-                {/* <RestaurantCard resName="KFC" cuisine = "Fast Food" /> */}
-            </div>
-        </div>
-    )
-}
+# Monolith vs Microservice Arch:
+        - Monolith - one service for all
+        - Microservice - diff service for different jobs
+                - Single responsibility principle
+                - Separation of concern
+                - can have diff tech stack for diff service
+                - services run on their own specific ports
 
 
+APPROACHES TO LOAD:
+        - Loads -> API -> Render UI
+        - Loads -> Render UI -> API -> Re-render
+
+Second is better : Better UX : In first , the user need to wait for the api call to see UI.
+                    - In second , atleast the UI is visible initially and then after API call, the data is also visible.
 
 
-//Using keys : Huge optimization in React. React does not have to render the entire list again. It only renders the items which have changed.
-                    
-                    resData.map((restaurant) => {
-                        return <RestaurantCard resList = {restaurant} key = {restaurant.info.id}/>
-                    })
+useEffect - takes 2 arguments 
+                - callback function [() => {}]
+                - dependency []
 
-// React bad practive : Anti-pattern: We should not use index as a key.
-
-resData.map((restaurant,index) => {
-                        return <RestaurantCard resList = {restaurant} key = {index}/>
-                    })
-
-Named Export vs Default Export:
- - Named Export used when there are multiple things to Export
- - Named - {}
-
-We can use both types of exports in one file :
-
-// mathUtils.js
-export const add = (a, b) => a + b;
-export const subtract = (a, b) => a - b;
-
-const multiply = (a, b) => a * b;
-export default multiply;
-
-Used when you want primary info and also extra info.
-
-# Hooks:
-    - normal JS functions.
-    - utility function
-    - useState() - superpowerful state variables
-    - useEffect()
-
-Problem Solved : 
-When data changes , the UI should detect it and change.
-
-#State Variable:
-    - whenever a state variable updates , React re-renders the component.
-    - let [filteredList , setFilteredList] = useState(resData);
-      - useState is a HOOK. (normal JS functions that enables you to create state variables)
-      - state variable  = filteredList
-      - state function  = setFilteredList (this function will set the value of filteredList)
-      - # useState returns an array :
-              - const arr = useState(resData)
-              - const filteredList = arr[0]
-              - const setFilteredList = arr[1]
-              - Same thing !!
+If we casually call swiggy API to get data using fetchData(), 
+    we will get a CORS error as our browsers block the call from one origin to another origin(origin mismatch)
 
 
-REACT  - Best at DOM manipulation.
-        - Reconsiliation Algorithm : (React Fiber) - React 16
-              - Suppose our res-container has 7 res-cards right now,
-              then we filter it to 3 cards, lets see what happend BTS.
-              - React uses Virtual DOM. Representation of actual DOM.
-              - Actual DOM : <div>
-                                <div> ....
-              - Virtual DOM - JS Object:
-                    eg; If we print the <Body/> in the Header file , we see the Virtual DOM.
-                        {
-                          div
-                          //Nested Object
-                          {
+Use Shimmer UI for good UX
 
-                          }
-                        }
-              - Finding diff between two HTML is tough . Its easily done by using an object representation , ie , Virtual DOM.
-              - DIFF ALGORITHM:
-              - Finds the difference between OLD and NEW Virtual DOMs.
-              - Since React does not touch the actual DOM, its fast.

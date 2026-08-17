@@ -1,21 +1,64 @@
 import RestaurantCard from "./RestaurantCard";
-import resData from "../utils/mockData";
-import {useState} from "react";
+// import resData from "../utils/mockData";
+import {useState, useEffect} from "react";
+import Shimmer from "./Shimmer";
 
 
 const Body = () => {
 
 
     // Local State Variables
-    let [filteredList , setFilteredList] = useState(resData);
+    let [filteredList , setFilteredList] = useState([]);
+    const [allRestaurants , setAllRestaurants] = useState([]);
+    const [searchText , setSearchText] = useState("");
+
+    useEffect(()=>{
+        // console.log("useEffect called");
+        fetchData();
+    }, [])
+
+    const fetchData = async() => {
+        // fetch() is given to us by the browser and can be used in JS.
+        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=20.3488569&lng=85.8161009&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+        
+        // fetch() returns a promise. This needs to be handled using .then() and .catch() methods OR Async/Await. We will use async/await here.
+        const json = await data.json();
+
+        console.log(json);
+
+        // access the live data from json. ? - Optional chaining operator. It is used to access the value of a property located deep within a chain of objects without having to check that each reference in the chain is valid.
+        setFilteredList(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setAllRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    }
+
+    // This is printed before the useEffect console log.
+    console.log("Body rendered"); 
+
+    // Conditional Rendering
+    if(filteredList.length === 0){
+        // return <h1>Loading...</h1>
+        return <Shimmer/>;
+    }
+
 
     // let filteredList = [];
     return (
         <div className = "body">
             <div className = "filter">
+                <div className = "search">
+                    {/* As we type , the body component will re-render */}
+                    <input type = "text" className = "search-box" value = {searchText} onChange = {(e)=>{setSearchText(e.target.value)}}></input>
+                    <button className = "search-btn" onClick = {()=>{
+                        console.log(searchText);
+                        // To avoid bug of searching the filtered list instead of the original list, we will use the allRestaurants state variable to filter the original list.
+                        const filteredRestaurants = allRestaurants.filter((res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase()));
+                        setFilteredList(filteredRestaurants);
+                    }}>Search</button>
+
+                </div>
                 <button className = "filter-btn" onClick = {() => {
 
-                    const filteredList2 = resData.filter((x) => x.info.avgRating > 4.0);
+                    const filteredList2 = filteredList.filter((x) => x.info.avgRating > 4.5);
                     setFilteredList(filteredList2);
 
                     // filteredList = resData.filter((x) => x.info.avgRating > 4.0);

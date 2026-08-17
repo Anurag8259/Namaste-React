@@ -8,6 +8,7 @@ const Style = {
 const RestaurantCard = (props) => {
     const {resList} = props; // Destructuring of props object
     const {name, cuisines} = resList.info; // Destructuring of resList object
+
     return (
         <div className = "res-card" style = {Style}>
             <img className = "res-logo"src = {CDN_URL}/>
