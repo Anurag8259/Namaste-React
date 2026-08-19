@@ -2,6 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import RestaurantMenu from "./components/RestaurantMenu";
+import {createBrowserRouter, RouterProvider , Outlet} from "react-router";
+import RestaurantCard from "./components/RestaurantCard";
 
 // Header
 //     - Logo
@@ -18,25 +24,6 @@ import Body from "./components/Body";
 
 
 
-const Style = {
-    backgroundColor : "#f8f7eb"
-}
-// props - ia an object which is used to pass data from parent to child component. It is immutable.
-const RestaurantCard = (props) => {
-    const {resList} = props; // Destructuring of props object
-    const {name, cuisines} = resList.info; // Destructuring of resList object
-    return (
-        <div className = "res-card" style = {Style}>
-            <img className = "res-logo"src = "https://www.cookingcarnival.com/wp-content/uploads/2025/09/Vegetable-Dum-Biryani-5-500x500.jpg"/>
-            <h1>{name}</h1>
-            <h2>{cuisines.join(", ")}</h2>
-            <h2>{resList.info.avgRating} stars</h2>
-            <h2>{resList.info.sla.slaString}</h2>
-        </div>
-    )
-}
-
-
 
 const AppLayout = () => {
     return (
@@ -44,12 +31,40 @@ const AppLayout = () => {
             {/* Header */}
             <Header/>
             {/* Body */}
-            <Body/>
+            {/* <Body/> */}
             {/* Footer */}
+            {/* Outlet - renders components that is specified in the children array */}
+            <Outlet/>
         </div>
     )
 }
 
+const appRouter = createBrowserRouter([
+    {
+        path: "/",
+        element: <AppLayout/>,
+        errorElement: <Error/>,
+        children: [
+            {
+                path: "/",
+                element: <Body/>,
+            },
+            {
+                path: "/about",
+                element: <About/>,
+            },
+            {
+                path: "/contact",
+                element: <Contact/>,
+            },
+            {
+                path: "/restaurants/:storeId/:brandId",
+                element: <RestaurantMenu/>,
+            }
+        ]
+    },
+])
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<AppLayout/>);
+root.render(<RouterProvider router={appRouter} />);

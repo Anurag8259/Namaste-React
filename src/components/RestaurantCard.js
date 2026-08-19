@@ -7,15 +7,15 @@ const Style = {
 
 const RestaurantCard = (props) => {
     const {resList} = props; // Destructuring of props object
-    const {name, cuisines} = resList.info; // Destructuring of resList object
+    const {brand_name, main_offering} = resList; // Destructuring of resList object
 
     return (
         <div className = "res-card" style = {Style}>
             <img className = "res-logo"src = {CDN_URL}/>
-            <h1>{name}</h1>
-            <h2>{cuisines.join(", ")}</h2>
-            <h2>{resList.info.avgRating} stars</h2>
-            <h2>{resList.info.sla.slaString}</h2>
+            <h1>{brand_name}</h1>
+            <h2>{main_offering}</h2>
+            {/* <h2>{resList.info.avgRating} stars</h2>
+            <h2>{resList.info.sla.slaString}</h2> */}
         </div>
     )
 }

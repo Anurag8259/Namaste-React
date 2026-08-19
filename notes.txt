@@ -1,27 +1,63 @@
-# Monolith vs Microservice Arch:
-        - Monolith - one service for all
-        - Microservice - diff service for different jobs
-                - Single responsibility principle
-                - Separation of concern
-                - can have diff tech stack for diff service
-                - services run on their own specific ports
+useEffect - dependency array (see comments in Header)
+
+npm install react-router-dom -  package install for routing fuctionalities
+
+import {createBrowserRouter, RouterProvider} from "react-router";
+
+For more info on Error : import {useRouteError} from "react-router";
 
 
-APPROACHES TO LOAD:
-        - Loads -> API -> Render UI
-        - Loads -> Render UI -> API -> Re-render
+OLD:
 
-Second is better : Better UX : In first , the user need to wait for the api call to see UI.
-                    - In second , atleast the UI is visible initially and then after API call, the data is also visible.
+const AppLayout = () => {
+    return (
+        <div className = "app">
+            {/* Header */}
+            <Header/>
+            {/* Body */}
+            <Body/>
+            {/* Footer */}
+        </div>
+    )
+}
+
+const appRouter = createBrowserRouter([
+    {
+        path: "/",
+        element: <AppLayout/>,
+        errorElement: <Error/>
+    },
+    {
+        path: "/about",
+        element: <About/>,
+    },
+    {
+        path: "/contact",
+        element: <Contact/>,
+    }
+])
+
+        -- full page is replaced including header.
+        -- Soln - children route
 
 
-useEffect - takes 2 arguments 
-                - callback function [() => {}]
-                - dependency []
-
-If we casually call swiggy API to get data using fetchData(), 
-    we will get a CORS error as our browsers block the call from one origin to another origin(origin mismatch)
 
 
-Use Shimmer UI for good UX
+Very IMP to use LINK from "react-router":
+        
+        - normal anchor tag redirects and completely loads the entir page
+        - LINK does not load the entite page , eg ,  header is not reloaded
 
+
+React APP are Single Page Applications:
+        - All redirects and pages are just new components.
+        - Use LINK , to load only the required component and not the entire page.
+
+2 types of routing:
+        - Client Side Routing - No network calls during routing , just components load and existing data is used.(better) 
+        - Server Side Routing - Network calls made during routing, page is coming from server and entire page is loaded.
+
+
+
+LINK uses anchor tag in the background:
+        - LINK is a wrapper over anchor tag.

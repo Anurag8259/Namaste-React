@@ -4,3 +4,5 @@ export const LOGO_URL = "https://img.magnific.com/free-vector/food-shopping-logo
 
 // Named Export
 // export {CDN_URL, LOGO_URL};
+
+export const MENU_API = "https://www.eatsure.com/v1/api/get_all_products/brand_id/";

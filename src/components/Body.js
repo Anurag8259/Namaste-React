@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurantCard";
 // import resData from "../utils/mockData";
 import {useState, useEffect} from "react";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router";
 
 
 const Body = () => {
@@ -19,7 +20,7 @@ const Body = () => {
 
     const fetchData = async() => {
         // fetch() is given to us by the browser and can be used in JS.
-        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=20.3488569&lng=85.8161009&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+        const data = await fetch("https://www.eatsure.com/v1/api/get_all_brands?&store_id=10157&city_id=5785");
         
         // fetch() returns a promise. This needs to be handled using .then() and .catch() methods OR Async/Await. We will use async/await here.
         const json = await data.json();
@@ -27,8 +28,8 @@ const Body = () => {
         console.log(json);
 
         // access the live data from json. ? - Optional chaining operator. It is used to access the value of a property located deep within a chain of objects without having to check that each reference in the chain is valid.
-        setFilteredList(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-        setAllRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setFilteredList(json?.data?.data);
+        setAllRestaurants(json?.data?.data);
     }
 
     // This is printed before the useEffect console log.
@@ -51,14 +52,14 @@ const Body = () => {
                     <button className = "search-btn" onClick = {()=>{
                         console.log(searchText);
                         // To avoid bug of searching the filtered list instead of the original list, we will use the allRestaurants state variable to filter the original list.
-                        const filteredRestaurants = allRestaurants.filter((res)=>res.info.name.toLowerCase().includes(searchText.toLowerCase()));
+                        const filteredRestaurants = allRestaurants.filter((res)=>res.brand_name.toLowerCase().includes(searchText.toLowerCase()));
                         setFilteredList(filteredRestaurants);
                     }}>Search</button>
 
                 </div>
                 <button className = "filter-btn" onClick = {() => {
 
-                    const filteredList2 = filteredList.filter((x) => x.info.avgRating > 4.5);
+                    const filteredList2 = filteredList.filter((x) => x.store_id > 4.5);
                     setFilteredList(filteredList2);
 
                     // filteredList = resData.filter((x) => x.info.avgRating > 4.0);
@@ -81,7 +82,7 @@ const Body = () => {
                     // Why is key required? - React uses key to identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity.
                     //Using keys : Huge optimization in React. React does not have to render the entire list again. It only renders the items which have changed.
                     filteredList.map((restaurant) => {
-                        return <RestaurantCard resList = {restaurant} key = {restaurant.info.id}/>
+                        return <Link to={`/restaurants/${restaurant.store_id}/${restaurant.brand_id}`} key = {restaurant.brand_id}><RestaurantCard resList = {restaurant} /></Link>
                     })
                 }
 
