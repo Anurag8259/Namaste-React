@@ -54,3 +54,10 @@
 .filter{
     display: flex;
 }
+.user{
+    padding: 10px;
+    border: 1px solid black;
+}
+.count_button{
+    margin: 10px;
+}

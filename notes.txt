@@ -1,63 +1,93 @@
-useEffect - dependency array (see comments in Header)
-
-npm install react-router-dom -  package install for routing fuctionalities
-
-import {createBrowserRouter, RouterProvider} from "react-router";
-
-For more info on Error : import {useRouteError} from "react-router";
+Class Based Componets:
+        - it has a render method that returns JSX
+        - extends React.Components
 
 
-OLD:
+Lifecycle of Class Based Component:
+        - Whenever a CBC is called , an instance of that class is created
+        - First , the constructor() is executed
+        - Secondly , the render() is executed
+        - Thirdly , componentDidMount() is executed
 
-const AppLayout = () => {
-    return (
-        <div className = "app">
-            {/* Header */}
-            <Header/>
-            {/* Body */}
-            <Body/>
-            {/* Footer */}
-        </div>
-    )
+If 1 CDB:
+        - constructor()
+        - render()
+        - componentDidMount()
+
+If parent and child CDC:
+        - parent constructor()
+        - parent render()
+        - child constructor()
+        - child render()
+        - child componentDidMount()
+        - parent componentDidMount()
+
+Use of componentDidMount() - 
+        - Used to make API call
+        - In functional component we use useEffect.
+        - Render -> API call -> Re-render
+
+Suppose there are 2 child classes:
+        - parent class
+                - child a
+                - child b
+        - Sequence:
+                - p c()
+                - p r()
+                - ca c()
+                - ca r()
+                - cb c()
+                - cb r()
+                - ca cdm()
+                - cb cdm()
+                - p cdm()
+        - This happens as React optimizes by batching together the render phase of the child classes.
+        - First render phase is completed then DOM changes , then componentDidMount() is called.
+        - DOM manipulation is an expensive task , so recat batches that for multiple child components.
+
+-- MOUNTING
+        - constructor
+        - Render
+        - DOM
+        - componentDidMount
+                - API call
+                - this.setState
+
+
+-- UPDATE
+        - Render with API data
+        - DOM
+        - componentDidUpdate
+
+
+-- UNMOUNTING
+        - componentWillUnmount() - called when component is gone from DOM.
+
+
+Diff:
+
+useEffect - called after every render
+componentDidMount - called after 1st render.
+componentDidUpdate - called after all subsequent renders.
+
+useEffect - called after 1st render
+useEffect - ()=> {} , [count] - called whenever count changes.
+componentDidUpdate - componentDidUpdate(prevProps,prevState){
+        if(this.state.count === prevProps.count){
+                // code
+        }
 }
 
-const appRouter = createBrowserRouter([
-    {
-        path: "/",
-        element: <AppLayout/>,
-        errorElement: <Error/>
-    },
-    {
-        path: "/about",
-        element: <About/>,
-    },
-    {
-        path: "/contact",
-        element: <Contact/>,
-    }
-])
 
-        -- full page is replaced including header.
-        -- Soln - children route
+# if u need to do separate tasks on change of separate state variables , then you need to write multiple useEffect.
 
+# setInterval and setTimeout will continue in every "page" if not cleared in componentWillUnmount.
 
-
-
-Very IMP to use LINK from "react-router":
+# In Today's functional compoent - If we write setInterval in useEffect , It wont stop when we switch "pages".
+        - How to clean up in Functional Component.
         
-        - normal anchor tag redirects and completely loads the entir page
-        - LINK does not load the entite page , eg ,  header is not reloaded
-
-
-React APP are Single Page Applications:
-        - All redirects and pages are just new components.
-        - Use LINK , to load only the required component and not the entire page.
-
-2 types of routing:
-        - Client Side Routing - No network calls during routing , just components load and existing data is used.(better) 
-        - Server Side Routing - Network calls made during routing, page is coming from server and entire page is loaded.
-
-
-
-LINK uses anchor tag in the background:
-        - LINK is a wrapper over anchor tag.
+# We cannot wriet async in useEffect - useEffect(async ()=>{});
+        - You cannot pass an async function directly to useEffect because useEffect expects its callback to return either 
+        nothing or a synchronous cleanup function, whereas an async function automatically returns a Promise. If React receives 
+        a Promise instead of a cleanup function, it cannot clear side effects when the component unmounts, leading to memory leaks 
+        and console errors.
