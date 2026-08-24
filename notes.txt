@@ -91,3 +91,19 @@ componentDidUpdate - componentDidUpdate(prevProps,prevState){
         nothing or a synchronous cleanup function, whereas an async function automatically returns a Promise. If React receives 
         a Promise instead of a cleanup function, it cannot clear side effects when the component unmounts, leading to memory leaks 
         and console errors.
+
+
+
+// Chunking
+// Code Splitting
+// Lazy Loading
+// Dynamic Bundling
+// On Demand Loading
+// All refer to the same concept of loading the code when required. This helps in reducing the size of the bundle and improves the performance of the application.
+        - The bundler creates 1 js file for the entire proj which is 
+        loaded into the browser.
+        - In case of large prod apps , this file becomes very large and may take time to load
+        - This is why we use chunking to breaks that file into separate chunks and load chunks when required.
+
+On demand Loading / lazy loading - when we load the first screen , we do not load grocery component.
+

@@ -1,10 +1,12 @@
 import {LOGO_URL} from "../utils/constants"; // Named Import - Importing a named export from a module. The name of the import should be same as the name of the export.
 import {useState, useEffect} from "react";
 import {Link} from "react-router";
+import useOnlineTracker from "../utils/useOnlineTracker";
 
 const Header = () => {
 
     const [btnName, setBtnName] = useState("Login");
+    const isOnline = useOnlineTracker();
 
     // const btnName = "Login";
 
@@ -23,6 +25,9 @@ const Header = () => {
             <div className = "nav-items">
                 <ul>
                     <li>
+                        {isOnline ? "✅ Online" : "🔴 Offline"}
+                    </li>
+                    <li>
                     <Link to="/">Home</Link>
                     </li>
                     <li>
@@ -31,7 +36,9 @@ const Header = () => {
                     <li>
                     <Link to="/contact">Contact Us</Link>
                     </li>
-                    <li>Cart</li>
+                    <li>
+                    <Link to="/grocery">Grocery</Link>
+                    </li>
                     {/* This wont work as btnName is a regular variable, not a React state */}
                     {/* btnName will update but UI wont render as it will not refreshed */}
                     {/* Beacuse of diff algo only the button re-rebders not the entire DOM */}
