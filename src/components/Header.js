@@ -18,31 +18,31 @@ const Header = () => {
     },[]);
 
     return (
-        <div className = "header">
+        <div className = "flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-200">
             <div className = "logo-container">
-                <img className = "logo" src={LOGO_URL}/>
+                <img className = "w-56" src={LOGO_URL}/>
             </div>
-            <div className = "nav-items">
-                <ul>
-                    <li>
+            <div className = "flex items-center ">
+                <ul className = "flex p-4 m-4">
+                    <li className = "px-4">
                         {isOnline ? "✅ Online" : "🔴 Offline"}
                     </li>
-                    <li>
+                    <li className = "px-4 cursor-pointer">
                     <Link to="/">Home</Link>
                     </li>
-                    <li>
+                    <li className = "px-4 cursor-pointer">
                     <Link to="/about">About Us</Link>
                     </li>
-                    <li>
+                    <li className = "px-4 cursor-pointer">
                     <Link to="/contact">Contact Us</Link>
                     </li>
-                    <li>
+                    <li className = "px-4 cursor-pointer">
                     <Link to="/grocery">Grocery</Link>
                     </li>
                     {/* This wont work as btnName is a regular variable, not a React state */}
                     {/* btnName will update but UI wont render as it will not refreshed */}
                     {/* Beacuse of diff algo only the button re-rebders not the entire DOM */}
-                    <li className = "login-button" onClick = {()=>{btnName === "Login"? setBtnName("Logout") : setBtnName("Login")}}>{btnName}</li>
+                    <li className = "px-2 bg-green-200 cursor-pointer" onClick = {()=>{btnName === "Login"? setBtnName("Logout") : setBtnName("Login")}}>{btnName}</li>
                 </ul>
             </div>
         </div>

@@ -1,109 +1,17 @@
-Class Based Componets:
-        - it has a render method that returns JSX
-        - extends React.Components
+TailwindCSS - CSS framework
+
+TailwindCSS uses postcss behind the scenes to transform CSS with JS.
+
+Parcel uses postcss rc to understand tailwind.
+
+Tailwind gives class names for all css features.
 
 
-Lifecycle of Class Based Component:
-        - Whenever a CBC is called , an instance of that class is created
-        - First , the constructor() is executed
-        - Secondly , the render() is executed
-        - Thirdly , componentDidMount() is executed
-
-If 1 CDB:
-        - constructor()
-        - render()
-        - componentDidMount()
-
-If parent and child CDC:
-        - parent constructor()
-        - parent render()
-        - child constructor()
-        - child render()
-        - child componentDidMount()
-        - parent componentDidMount()
-
-Use of componentDidMount() - 
-        - Used to make API call
-        - In functional component we use useEffect.
-        - Render -> API call -> Re-render
-
-Suppose there are 2 child classes:
-        - parent class
-                - child a
-                - child b
-        - Sequence:
-                - p c()
-                - p r()
-                - ca c()
-                - ca r()
-                - cb c()
-                - cb r()
-                - ca cdm()
-                - cb cdm()
-                - p cdm()
-        - This happens as React optimizes by batching together the render phase of the child classes.
-        - First render phase is completed then DOM changes , then componentDidMount() is called.
-        - DOM manipulation is an expensive task , so recat batches that for multiple child components.
-
--- MOUNTING
-        - constructor
-        - Render
-        - DOM
-        - componentDidMount
-                - API call
-                - this.setState
+<div className = "m-4 p-4 w-[200px]" style = {Style}>
+        - when w-48 3 7 ...  etc do not match and you want exact 200px
 
 
--- UPDATE
-        - Render with API data
-        - DOM
-        - componentDidUpdate
-
-
--- UNMOUNTING
-        - componentWillUnmount() - called when component is gone from DOM.
-
-
-Diff:
-
-useEffect - called after every render
-componentDidMount - called after 1st render.
-componentDidUpdate - called after all subsequent renders.
-
-useEffect - called after 1st render
-useEffect - ()=> {} , [count] - called whenever count changes.
-componentDidUpdate - componentDidUpdate(prevProps,prevState){
-        if(this.state.count === prevProps.count){
-                // code
-        }
-}
-
-
-# if u need to do separate tasks on change of separate state variables , then you need to write multiple useEffect.
-
-# setInterval and setTimeout will continue in every "page" if not cleared in componentWillUnmount.
-
-# In Today's functional compoent - If we write setInterval in useEffect , It wont stop when we switch "pages".
-        - How to clean up in Functional Component.
+TailwindCSS is lightweight:
+        - Parcel loads only those CSS classes which are used in the proj.
+        - If you use m-4 , 100 times , it loads only the 1 m-4 class and reuses it.
         
-# We cannot wriet async in useEffect - useEffect(async ()=>{});
-        - You cannot pass an async function directly to useEffect because useEffect expects its callback to return either 
-        nothing or a synchronous cleanup function, whereas an async function automatically returns a Promise. If React receives 
-        a Promise instead of a cleanup function, it cannot clear side effects when the component unmounts, leading to memory leaks 
-        and console errors.
-
-
-
-// Chunking
-// Code Splitting
-// Lazy Loading
-// Dynamic Bundling
-// On Demand Loading
-// All refer to the same concept of loading the code when required. This helps in reducing the size of the bundle and improves the performance of the application.
-        - The bundler creates 1 js file for the entire proj which is 
-        loaded into the browser.
-        - In case of large prod apps , this file becomes very large and may take time to load
-        - This is why we use chunking to breaks that file into separate chunks and load chunks when required.
-
-On demand Loading / lazy loading - when we load the first screen , we do not load grocery component.
-

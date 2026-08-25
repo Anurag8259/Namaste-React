@@ -1,4 +1,6 @@
-.header{
+@import "tailwindcss";
+
+/* .header{
     display: flex;
     justify-content: space-between;
     border: 1px solid black;
@@ -60,4 +62,4 @@
 }
 .count_button{
     margin: 10px;
-}
+} */

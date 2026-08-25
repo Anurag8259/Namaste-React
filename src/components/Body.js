@@ -45,11 +45,11 @@ const Body = () => {
     // let filteredList = [];
     return (
         <div className = "body">
-            <div className = "filter">
-                <div className = "search">
+            <div className = "filter flex">
+                <div className = "m-4 px-4">
                     {/* As we type , the body component will re-render */}
-                    <input type = "text" className = "search-box" value = {searchText} onChange = {(e)=>{setSearchText(e.target.value)}}></input>
-                    <button className = "search-btn" onClick = {()=>{
+                    <input className = "border border-solid border-black" type = "text" value = {searchText} onChange = {(e)=>{setSearchText(e.target.value)}} />
+                    <button className = "px-4 py-2 bg-green-100 m-4 rounded-lg cursor-pointer" onClick = {()=>{
                         console.log(searchText);
                         // To avoid bug of searching the filtered list instead of the original list, we will use the allRestaurants state variable to filter the original list.
                         const filteredRestaurants = allRestaurants.filter((res)=>res.brand_name.toLowerCase().includes(searchText.toLowerCase()));
@@ -57,20 +57,22 @@ const Body = () => {
                     }}>Search</button>
 
                 </div>
-                <button className = "filter-btn" onClick = {() => {
+                <div className = "flex items-center m-4 p-4 border-solid border-black">
+                    <button className = "px-4 py-2 bg-gray-200 rounded-lg cursor-pointer" onClick = {() => {
 
-                    const filteredList2 = filteredList.filter((x) => x.store_id > 4.5);
-                    setFilteredList(filteredList2);
+                        const filteredList2 = filteredList.filter((x) => x.store_id > 4.5);
+                        setFilteredList(filteredList2);
 
-                    // filteredList = resData.filter((x) => x.info.avgRating > 4.0);
-                    console.log(filteredList);
-                } // Js function {}
-                }>
-                    Top rated Restaurants
-                </button>
+                        // filteredList = resData.filter((x) => x.info.avgRating > 4.0);
+                        console.log(filteredList);
+                    } // Js function {}
+                    }>
+                        Top rated Restaurants
+                    </button>
+                </div>
+                
             </div>
-            <div className = "search">Search</div>
-            <div className = "res-container">
+            <div className = "flex flex-wrap">
                 {/* Restaurant Card - Separate component as multiple is reqd. */}
                 {/* Passing props to a component */}
                 {/* <RestaurantCard  resList = {resData[0]}/>
@@ -85,8 +87,6 @@ const Body = () => {
                         return <Link to={`/restaurants/${restaurant.store_id}/${restaurant.brand_id}`} key = {restaurant.brand_id}><RestaurantCard resList = {restaurant} /></Link>
                     })
                 }
-
-
             </div>
         </div>
     )
