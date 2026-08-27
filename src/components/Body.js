@@ -1,9 +1,10 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard , {withDescription} from "./RestaurantCard";
 // import resData from "../utils/mockData";
 import {useState, useEffect} from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router";
 
+const RestaurantCardWithDescription = withDescription(RestaurantCard);
 
 const Body = () => {
 
@@ -20,7 +21,7 @@ const Body = () => {
 
     const fetchData = async() => {
         // fetch() is given to us by the browser and can be used in JS.
-        const data = await fetch("https://www.eatsure.com/v1/api/get_all_brands?&store_id=10157&city_id=5785");
+        const data = await fetch("https://www.eatsure.com/v1/api/get_restaurants?store_id=10157&city_id=5785&");
         
         // fetch() returns a promise. This needs to be handled using .then() and .catch() methods OR Async/Await. We will use async/await here.
         const json = await data.json();
@@ -49,7 +50,7 @@ const Body = () => {
                 <div className = "m-4 px-4">
                     {/* As we type , the body component will re-render */}
                     <input className = "border border-solid border-black" type = "text" value = {searchText} onChange = {(e)=>{setSearchText(e.target.value)}} />
-                    <button className = "px-4 py-2 bg-green-100 m-4 rounded-lg cursor-pointer" onClick = {()=>{
+                    <button className = "px-4 py-2 bg-green-100 m-4 rounded-lg " onClick = {()=>{
                         console.log(searchText);
                         // To avoid bug of searching the filtered list instead of the original list, we will use the allRestaurants state variable to filter the original list.
                         const filteredRestaurants = allRestaurants.filter((res)=>res.brand_name.toLowerCase().includes(searchText.toLowerCase()));
@@ -84,7 +85,11 @@ const Body = () => {
                     // Why is key required? - React uses key to identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity.
                     //Using keys : Huge optimization in React. React does not have to render the entire list again. It only renders the items which have changed.
                     filteredList.map((restaurant) => {
-                        return <Link to={`/restaurants/${restaurant.store_id}/${restaurant.brand_id}`} key = {restaurant.brand_id}><RestaurantCard resList = {restaurant} /></Link>
+                        return ( 
+                            <Link to={`/restaurants/${restaurant.store_id}/${restaurant.brand_id}`} key = {restaurant.brand_id}> 
+                                {restaurant?.description?.length > 5 ? <RestaurantCardWithDescription resList = {restaurant}/>:<RestaurantCard resList = {restaurant}/>}
+                            </Link>
+                        )
                     })
                 }
             </div>

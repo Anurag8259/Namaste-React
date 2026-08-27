@@ -1,13 +1,17 @@
 import {LOGO_URL} from "../utils/constants"; // Named Import - Importing a named export from a module. The name of the import should be same as the name of the export.
-import {useState, useEffect} from "react";
+import {useState ,useContext, useEffect} from "react";
 import {Link} from "react-router";
 import useOnlineTracker from "../utils/useOnlineTracker";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
 
     const [btnName, setBtnName] = useState("Login");
     const isOnline = useOnlineTracker();
 
+    const data = useContext(UserContext);
+
+    console.log(data);
     // const btnName = "Login";
 
     // If no dependency array - useEffect will be called on every render of the component.
@@ -43,6 +47,7 @@ const Header = () => {
                     {/* btnName will update but UI wont render as it will not refreshed */}
                     {/* Beacuse of diff algo only the button re-rebders not the entire DOM */}
                     <li className = "px-2 bg-green-200 cursor-pointer" onClick = {()=>{btnName === "Login"? setBtnName("Logout") : setBtnName("Login")}}>{btnName}</li>
+                    <li className = "px-2 font-bold">🤵🏻 {data.loggedInUser}</li>
                 </ul>
             </div>
         </div>

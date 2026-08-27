@@ -4,7 +4,7 @@ import {MENU_API} from "../utils/constants";
 const useRestaurantMenu = (props) => {
     // return null;
     const [brandId , storeId] = props;
-    const [menu, setMenu] = useState(null);
+    const [categories, setCategory] = useState(null);
 
     useEffect(()=>{
         fetchMenu();
@@ -19,10 +19,10 @@ const useRestaurantMenu = (props) => {
 
         const json = await data.json();
 
-        setMenu(json.data?.collections?.[0]?.products);
-        console.log(json.data?.collections?.[0]?.products);
+        setCategory(json.data?.collections);
+        console.log(json.data?.collections);
     }
-    return menu;
+    return categories;
 };
 
 export default useRestaurantMenu;

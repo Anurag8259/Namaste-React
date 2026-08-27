@@ -7,17 +7,29 @@ import {CDN_URL} from "../utils/constants"; // Named Import - Importing a named 
 
 const RestaurantCard = (props) => {
     const {resList} = props; // Destructuring of props object
-    const {brand_name, main_offering} = resList; // Destructuring of resList object
-
+    if (!resList) return null;
+    const {background_url,brand_name, main_offering} = resList; // Destructuring of resList object
+    
     return (
         <div className = "m-4 py-2 w-48 rounded-lg bg-gray-100 hover:bg-gray-200">
-            <img className = "rounded-lg" src = {CDN_URL}/>
+            <img className = "rounded-lg" src = {background_url}/>
             <h1 className = "font-bold text-lg" >{brand_name}</h1>
             <h2>{main_offering}</h2>
             {/* <h2>{resList.info.avgRating} stars</h2>
             <h2>{resList.info.sla.slaString}</h2> */}
         </div>
     )
-}
+};
+
+// Higher Order Component
+// Input - RestaurantCard , Output - RestaurantCardWithDecription
+export const withDescription = (RestaurantCard) => {
+    return (props) => (
+        <div>
+            <label className = "absolute max-w-48 max-h-20 m-4 p-4 bg-pink-300 scroll-auto block overflow-hidden rounded-lg">{props?.resList?.description}</label>
+            <RestaurantCard {...props}/>
+        </div>
+    )
+};
 
 export default RestaurantCard;
