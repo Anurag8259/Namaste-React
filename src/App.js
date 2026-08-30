@@ -11,6 +11,9 @@ import {createBrowserRouter, RouterProvider , Outlet} from "react-router";
 import RestaurantCard from "./components/RestaurantCard";
 import UserContext  from "./utils/UserContext";
 import {useState,useEffect} from "react";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./components/Cart";
 
 // Header
 //     - Logo
@@ -53,6 +56,7 @@ const AppLayout = () => {
     
 
     return (
+        <Provider store={appStore}>
         <UserContext.Provider value = {{loggedInUser : userName}}>
         <div className = "app">
             {/* Header */}
@@ -64,6 +68,7 @@ const AppLayout = () => {
             <Outlet/>
         </div>
         </UserContext.Provider>
+        </Provider>
     )
 }
 
@@ -92,6 +97,10 @@ const appRouter = createBrowserRouter([
             {
                 path: "/grocery",
                 element: <Suspense fallback ={<h1>Loading...</h1>}><Grocery/></Suspense>,
+            },
+            {
+                path: "/cart",
+                element: <Cart/>
             }
         ]
     },

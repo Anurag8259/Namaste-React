@@ -3,6 +3,7 @@ import {useState ,useContext, useEffect} from "react";
 import {Link} from "react-router";
 import useOnlineTracker from "../utils/useOnlineTracker";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
 
@@ -11,7 +12,7 @@ const Header = () => {
 
     const data = useContext(UserContext);
 
-    console.log(data);
+    console.log(data + "context");
     // const btnName = "Login";
 
     // If no dependency array - useEffect will be called on every render of the component.
@@ -20,6 +21,9 @@ const Header = () => {
     useEffect(()=>{
         console.log("useEffect called");
     },[]);
+
+    // Use Selector HOOK
+    const cartItems = useSelector((store) => store.cart.items);
 
     return (
         <div className = "flex justify-between bg-pink-100 shadow-lg sm:bg-yellow-50 lg:bg-green-200">
@@ -43,6 +47,9 @@ const Header = () => {
                     <li className = "px-4 cursor-pointer">
                     <Link to="/grocery">Grocery</Link>
                     </li>
+                    <Link to="/cart">
+                    <li className = "px-4 font-bold" >Cart ({cartItems.length} items)</li>
+                    </Link>
                     {/* This wont work as btnName is a regular variable, not a React state */}
                     {/* btnName will update but UI wont render as it will not refreshed */}
                     {/* Beacuse of diff algo only the button re-rebders not the entire DOM */}

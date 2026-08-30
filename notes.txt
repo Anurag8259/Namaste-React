@@ -1,34 +1,48 @@
-Higher Order Component : 
-        - Input - Component
-        - Output - Component
-        - Acts as a component enhancer
+# Redux works in the data Layer.
+        - Redux is not mandatory in your app always, react context can used. Only in case of large scale app, Redux should be used
 
-All React App has two layers :
-        UI layer - JSX 
-        Data Layer 
+# Redux and React are separate library.
 
-# Controlled Component vs Uncontrolled Component:
-        - Here ResCat is a controlled component , which is controlled bhy ResMenu.
-        - ResCat has no state vars and its state is controlled by ResMenu.
+# Other Alternative : Zustand
 
-# This is called lifting state Up. --- IMP
+# Redux has 2 lib : 
+        - React-Redux
+        - Redux-Toolkit - New standard way of writing code (old was very complicated (Vanilla Redux))
 
-# Props Drilling problem in React:
-        - Suppose you have 7-8 components , and all exist in a hierarchical form (two is a child of one and so on).
-        - If you get data in ONE, and you need to pass that to EIGHT, You need to pass the data as props 
-                from one to two , two to three and so on. (Even if two does not use the data)
-        - Try to avoid Props Drilling
+# Diagram :
+        - WRITE DATA 
+                - React cannot directly modify Cart Slice in Redux.
+                - React first calls a Dispatch Action , which calls a function , which then modifies the redux slice.
+                - Function is called REDUCER Function.
+        - READ DATA
+                - We use SELECTOR to read from Redux.
+                - It is called "SUBSCRIBING TO THE STORE"
+                - We say :  our header is subscribed to the store
+                - Once subscribed , any chnage in data will automatically update in Cart.
 
-# SOLUTION : React Context:
-        - useContext - hook from React
-        - can be accessed anywhere by importing.
+# Redux Toolkit
+        - Install @reduxjs/toolkit and react-redux
+        - Build our store
+        - Connect store to app
+        - Create cartSlice
+        - dispatch(action)
+        - Selector
 
-# If you need to use context in ClassBased component:
-        - import the component 
-        - <UserContext.Consumer>
-                {(data) => console.log(data)} // Callback func returns JSX 
+EXAMPLE:
+        - onClick = {handleAdd(item)}
+        - What it does: Executes immediately during rendering.
+
+        - onClick = {() => handleAdd(item)}
+        - What it does: Passes an arrow function wrapper.
+
+        - onClick = {handleAdd}
+        - What it does: Passes a direct reference to the function.
+
+# Redux DevTools:
+        - Extension
+        - Helps in Debugging
         
-        <UserContext.Consumer/>
-
-# We can change the values of context using <UserContext.Provider value = ....../>
-
+ADVANCED:
+        - Earlier when we had to make an api call and store that data in redux
+        - We had a design pattern containing Middlewares and Redux Thunks.
+        - Now we use RTK Query in the new version.
