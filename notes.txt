@@ -1,48 +1,72 @@
-# Redux works in the data Layer.
-        - Redux is not mandatory in your app always, react context can used. Only in case of large scale app, Redux should be used
+# TESTING
+        - Manual Testing 
+                - Manually test feature by using it.
+        - Testing with Code
 
-# Redux and React are separate library.
+# TESTING (for developers):
+        - Unit Testing
+                - Test react component in isolation.
+        - Integration Testing 
+                - Testing the integration of components.
+        - End-to-End Testing
+                - Test from the point where user logs in till the user logs out.
+                - Simulating what user can do throughout the app.
 
-# Other Alternative : Zustand
+# Libraries:
+        - React Testing Library 
+                - Built on top of DOM testing library 
+                - uses JEST library 
+                - JEST in turn uses Babel
+                - SETUP:
+                        - npm install -D @testing-library/react
+                        - npm install -D jest
+                        - Additional dependencies for Babel.
+                        - Configure Babel
+                - npx create-jest
+                - Install JSDOM library - npm install --save-dev jest-environment-jsdom
+                - To Enable JSX in test files , run : npm install @babel/preset-react
+                - Include it in babel config
+                - Install @testing-library/jest-dom    -    npm install -D  @testing-library/jest-dom
 
-# Redux has 2 lib : 
-        - React-Redux
-        - Redux-Toolkit - New standard way of writing code (old was very complicated (Vanilla Redux))
 
-# Diagram :
-        - WRITE DATA 
-                - React cannot directly modify Cart Slice in Redux.
-                - React first calls a Dispatch Action , which calls a function , which then modifies the redux slice.
-                - Function is called REDUCER Function.
-        - READ DATA
-                - We use SELECTOR to read from Redux.
-                - It is called "SUBSCRIBING TO THE STORE"
-                - We say :  our header is subscribed to the store
-                - Once subscribed , any chnage in data will automatically update in Cart.
+# CONFLICT:
+        - parcel already uses babel and has its own Config
+        - Now since we have changed the config , it overrides the prev config 
+        - This will lead to conflict
 
-# Redux Toolkit
-        - Install @reduxjs/toolkit and react-redux
-        - Build our store
-        - Connect store to app
-        - Create cartSlice
-        - dispatch(action)
-        - Selector
+# SOLUTION: Change parcel behaviour
+        - create .parcelrc file.
+        - disable bebel transpilation
 
-EXAMPLE:
-        - onClick = {handleAdd(item)}
-        - What it does: Executes immediately during rendering.
+# jsdom
+        - Like brower.
+        - Suppose you are testing the header comp, the header will be loaded in jsdom.
 
-        - onClick = {() => handleAdd(item)}
-        - What it does: Passes an arrow function wrapper.
+# Which files are detected as test files:
+        - Inside folder __tests__
+        - x.test.js
+        - x.test.ts 
+        - x.spec.js 
+        - x.spec.ts 
 
-        - onClick = {handleAdd}
-        - What it does: Passes a direct reference to the function.
+# __ (doube underscore) - called Dunder.
 
-# Redux DevTools:
-        - Extension
-        - Helps in Debugging
-        
-ADVANCED:
-        - Earlier when we had to make an api call and store that data in redux
-        - We had a design pattern containing Middlewares and Redux Thunks.
-        - Now we use RTK Query in the new version.
+# TESTING
+        - RENDER 
+        - QUERY 
+        - ASSERT
+
+# GROUP OF TEST CASES:
+        - describe("These are .... test cases" , ()=> {
+                test .....
+                test .....
+                .
+                .
+                // Instead of "test" we can write "it" also. - ALIAS
+                it("",()=>{
+
+                })
+                .
+                .
+        });
+
