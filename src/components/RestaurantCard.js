@@ -11,7 +11,7 @@ const RestaurantCard = (props) => {
     const {background_url,brand_name, main_offering} = resList; // Destructuring of resList object
     
     return (
-        <div className = "m-4 py-2 w-48 rounded-lg bg-gray-100 hover:bg-gray-200">
+        <div data-testid = "resCard" className = "m-4 py-2 w-48 rounded-lg bg-gray-100 hover:bg-gray-200">
             <img className = "rounded-lg" src = {background_url}/>
             <h1 className = "font-bold text-lg" >{brand_name}</h1>
             <h2>{main_offering}</h2>

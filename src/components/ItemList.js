@@ -11,7 +11,7 @@ const ItemList = (props) => {
     }
 
     return (
-        <div className="m-4 p-4 flex justify-between border rounded-lg shadow-lg hover:bg-amber-300">
+        <div data-testid="foodItem" className="m-4 p-4 flex justify-between border rounded-lg shadow-lg hover:bg-amber-300">
             <div className="px-2">
                 <span className ="font-bold">{item?.product_name}</span>
                 <p className = "py-2 font-light">{item?.small_description}</p>

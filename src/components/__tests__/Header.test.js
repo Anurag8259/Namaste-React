@@ -1,6 +1,6 @@
 
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Header from "../Header";
 import { Provider } from "react-redux";
 import appStore from "../../utils/appStore";
@@ -20,6 +20,42 @@ it("Should load header comp with a login button", () => {
         </Provider>
     );
 
-    // expect(screen.getByText(/Login/i)).toBeInTheDocument();
+    const button = screen.getByText(/Login/);
+    expect(button).toBeInTheDocument();
 
-})
+});
+
+it("Should load header comp with a cart", () => {
+    render(
+        <Provider store={appStore}>
+            <BrowserRouter>
+                <Header />
+            </BrowserRouter>
+        </Provider>
+    );
+
+    const cart = screen.getByText(/Cart/);
+    expect(cart).toBeInTheDocument();
+});
+
+// How to simulate a CLICK event.
+it("Should simulate a click event on the login button", () => {    
+
+    render(
+        <Provider store={appStore}>
+            <BrowserRouter>
+                <Header />
+            </BrowserRouter>
+        </Provider>
+    );
+
+    const button = screen.getByText(/Login/);
+
+    fireEvent.click(button); // This will simulate a click event on the button.
+
+    const button2 = screen.getByText(/Logout/);
+
+    expect(button2).toBeInTheDocument();
+
+});
+

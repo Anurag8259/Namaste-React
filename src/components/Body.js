@@ -49,7 +49,7 @@ const Body = () => {
             <div className = "filter flex">
                 <div className = "m-4 px-4">
                     {/* As we type , the body component will re-render */}
-                    <input className = "border border-solid border-black" type = "text" value = {searchText} onChange = {(e)=>{setSearchText(e.target.value)}} />
+                    <input data-testid = "searchInput" className = "border border-solid border-black" type = "text" value = {searchText} onChange = {(e)=>{setSearchText(e.target.value)}} />
                     <button className = "px-4 py-2 bg-green-100 m-4 rounded-lg " onClick = {()=>{
                         console.log(searchText);
                         // To avoid bug of searching the filtered list instead of the original list, we will use the allRestaurants state variable to filter the original list.

@@ -70,3 +70,29 @@
                 .
         });
 
+# const button = screen.getByRole("button",{name:"Login"});
+        - We can also mention the name of the button if there are multiple buttons.
+
+# eg; const cartItem = screen.getByText("Cart - (0 items)");
+# eg; const cartItem = screen.getByText(/Cart/);   -- -- We can use regex also.
+
+# We can use fireEvent to simulate a click.
+
+# Few other helper func:
+        - beforeAll(()=>{
+        console.log("Before All Tests");
+        });
+
+        beforeEach(()=>{
+        console.log("Before Each Test");
+        });
+
+        afterEach(()=>{
+        console.log("After Each Test");
+        });
+
+        afterAll(()=>{
+        console.log("After All Tests");
+        });
+
+# See coverage report in coverage folder , index.html.
